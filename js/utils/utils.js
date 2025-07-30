@@ -1,5 +1,6 @@
 import { renderApp } from "../index.js"
 import { loginUser } from "../api/api.js"
+const SVG_NS = "http://www.w3.org/2000/svg";
 
 export function createElement(tag, className, text = '') {
     let element = document.createElement(tag)
@@ -9,41 +10,24 @@ export function createElement(tag, className, text = '') {
 }
 
 
-export function createForm(formRepresentaion, id) {
-    let formElement = document.createElement('form')
-    formElement.noValidate = true
-    formElement.id = id
 
-    formRepresentaion.elements.forEach((elem) => {
-        let formGrp = createElement('div', 'form-grp')
-        formGrp.dataset.for = elem.attributes.name
-        let label = createElement('label', null, elem.label)
-        label.setAttribute('for', elem.attributes.id)
-        let formInput = createElement(elem.tag, null)
-        setAttributes(formInput, elem.attributes)
-     
-        formGrp.style.width = elem.style.width
-        let inputError = createElement('p', 'input-error')
-        formGrp.append(label, formInput, inputError)
-        formElement.append(formGrp)
-    });
-
-    let formButtons = createElement("div", 'form-buttons')
-
-    formRepresentaion.buttons.forEach(button => {
-        formButtons.append(createButton(button.content, button.type, button.style))
-    })
-    formElement.append(formButtons)
-    formElement.addEventListener('submit', (e) => { handleFormSubmit(e) })
-    return formElement
+export function createSvgElement(tag) {
+  return document.createElementNS(SVG_NS, tag);
 }
+
+export function setSvgAttributes(el, attrs) {
+  for (const [k, v] of Object.entries(attrs || {})) {
+    el.setAttribute(k, String(v));
+  }
+}
+
 
 export function handleFormSubmit(event) {
     event.preventDefault()
     let form = new FormData(event.target)
     const formData = Object.fromEntries(form.entries())
-    console.log(formData);
-    if (event.target.id === "login-form") {
+    console.log(event.target);
+    if (event.target.className === "login-form") {
         login(event.target, formData)
     }
 }
@@ -86,14 +70,13 @@ export function setAttributes(elem, attributes) {
 
 export function login(form, data) {
     loginUser(data)
-        .then(([status, token]) => {
-            let formError = form.parentElement.querySelector(".form-error")
+        .then(([status, response]) => {
+            let formError = form.querySelector(".login-error")
             if (status == 200) {
-                localStorage.setItem("token", token)
+                localStorage.setItem("token", response)
                 navigateTo("/")
-            } else if (status == 401) {
-                formError.innerText = data.error
-                formError.classList.add("form-have-error")
+            } else {
+                formError.innerText = response.error
             }
         })
 }

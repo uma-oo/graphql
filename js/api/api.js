@@ -1,3 +1,6 @@
+import { renderApp } from "../index.js";
+import { navigateTo } from "../utils/utils.js";
+
 export async function loginUser(data) {
     try {
         const response = await fetch('https://learn.zone01oujda.ma/api/auth/signin', {
@@ -14,41 +17,86 @@ export async function loginUser(data) {
     }
 }
 
-export async function logoutUser() {
-    try {
-        const response = await fetch("http://localhost:8080/api/user/logout", {
-            method: "POST",
-            headers: { 'Content-Type': 'application/json' }
-        })
-
-        return response.status
-    } catch (error) {
-        console.error(`Error trying to logout: ${error}`)
-    }
-}
 
 export async function isLoggedIn() {
     const token = localStorage.getItem("token")
     if (!token) {
-        return { isLoggedIn: false }
+        return { isLogged: false }
     }
     try {
         const response = await fetch("https://learn.zone01oujda.ma/api/graphql-engine/v1/graphql", {
-            Authorization: Bearer,
             method: "POST",
             headers: {
+                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
-            }
+            },
+            body: JSON.stringify({
+                query: `{
+                        user {
+                            id
+                        }
+                    }`
+            })
+
+
         })
-        if (response.status) return { isLoggedIn: true, error: "The JWT authentication failed" }
+        let res = await response.json()
+        if (response.ok && !res.data) return { isLogged: false, error: res.errors }
+        else return { isLogged: true, userData: res.data }
 
     }
     catch (error) {
-        return { isLoggedIn: false, error }
+        return { isLogged: false, error }
     }
-    return { isLoggedIn: false }
+}
+
+
+
+export async function fetchData(query, variables) {
+    const token = localStorage.getItem("token")
+    if (!token) {
+        return { isLogged: false }
+    }
+    try {
+        const response = await fetch("https://learn.zone01oujda.ma/api/graphql-engine/v1/graphql", {
+            method: "POST",
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                query,
+                variables
+            })
+
+
+        })
+
+        return [response.status, await response.json()]
+    }
+    catch (error) {
+        return [, error]
+    }
 
 }
 
 
-// Oumaymanewfocus@2024
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
