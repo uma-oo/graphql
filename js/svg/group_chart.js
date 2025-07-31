@@ -1,111 +1,97 @@
-import { createSvgElement, setSvgAttributes } from "../utils/utils.js"
+
+import { createSvgElement, setSvgAttributes, createElement } from "../utils/utils.js"
 
 
-export function createGroupsChart(groups_per_project) {
-  
-  const svg = createSvgElement('svg');
-  setSvgAttributes(svg, { width: '100%', height: 450 });
+export function renderChart() {
+    const svg = document.getElementById("chart");
+    const dataLength = groups_per_project.length;
+    const maxXp = Math.max(...groups_per_project.map(g => Number(g.xp_per_project.transactions[0].amount) || 0), 1000);
+    const padding = 50;
+    const barWidth = 20;
+    const step = 30;
+    const chartWidth = padding * 2 + step * dataLength;
+    const chartHeight = 400;
+    const baseline = chartHeight - padding;
+    const unitHeight = (chartHeight - 2 * padding) / maxXp;
 
+    // Set viewBox dynamically
+    svg.setAttribute("viewBox", `0 0 ${chartWidth} ${chartHeight}`);
 
-  const yAxis = createSvgElement('line');
-  const xAxis = createSvgElement('line');
-  setSvgAttributes(yAxis, { x1: 50, y1: 50, x2: 50, y2: 350, stroke: "black" });
-  setSvgAttributes(xAxis, { x1: 50, y1: 350, x2: 610, y2: 350, stroke: "black" });
-  svg.append(yAxis, xAxis);
+    // Clear previous content
+    svg.innerHTML = "";
 
-  const initialTranslate = 60;
-  let offset = 0;
+    // Y-axis
+    const yAxis = createSvgElement("g");
+    setSvgAttributes(yAxis, { transform: `translate(${padding}, 0)` });
+    const yLine = createSvgElement("line");
+    setSvgAttributes(yLine, { x1: 0, y1: padding, x2: 0, y2: baseline, stroke: "#333", strokeWidth: 2 });
+    yAxis.appendChild(yLine);
 
-  const baseline = 350;
-  const barWidth = 40;
-  const step = 50;
-  const unitHeight = 83.33; // your scale factor
+    // Y-axis labels
+    [0, maxXp / 4, maxXp / 2, (3 * maxXp) / 4, maxXp].forEach((val, i) => {
+        const y = baseline - (val * (chartHeight - 2 * padding) / maxXp);
+        const text = createSvgElement("text");
+        text.textContent = Math.round(val);
+        setSvgAttributes(text, { x: -10, y: y + 5, textAnchor: "end", fontSize: 12 });
+        yAxis.appendChild(text);
+    });
+    const yLabel = createSvgElement("text");
+    yLabel.textContent = "XP Amount";
+    setSvgAttributes(yLabel, { x: -padding, y: chartHeight / 2, textAnchor: "middle", transform: "rotate(-90)", fontSize: 14 });
+    yAxis.appendChild(yLabel);
+    svg.appendChild(yAxis);
 
-  groups_per_project.forEach((group) => {
-    const g = createSvgElement('g');
-    setSvgAttributes(g, { transform: `translate(${initialTranslate + offset}, 0)` });
+    // X-axis
+    const xAxis = createSvgElement("g");
+    setSvgAttributes(xAxis, { transform: `translate(${padding}, ${baseline})` });
+    const xLine = createSvgElement("line");
+    setSvgAttributes(xLine, { x1: 0, y1: 0, x2: step * dataLength, y2: 0, stroke: "#333", strokeWidth: 2 });
+    xAxis.appendChild(xLine);
+    svg.appendChild(xAxis);
 
-    const count = Number(group.members_aggregate.total_members.count) || 0;
-    const height = unitHeight * count;
-    const y = baseline - height; // grow upwards
+    // Bars and labels
+    let offset = 0;
+    groups_per_project.forEach((group, index) => {
+        const g = createSvgElement("g");
+        setSvgAttributes(g, { transform: `translate(${padding + offset}, 0)` });
 
-    const rect = createSvgElement('rect');
-    setSvgAttributes(rect, { x: 0, y, width: barWidth, height, fill: "#4a90e2" });
+        const count = Number(group.xp_per_project.transactions[0].amount) || 0;
+        const height = unitHeight * count;
+        const y = baseline - height;
 
-    const textCount = createSvgElement('text');
-    textCount.textContent = String(count);
-    setSvgAttributes(textCount, { x: barWidth / 2, y: y - 5, textAnchor: "middle", fontSize: 12 });
+        // Bar
+        const rect = createSvgElement("rect", "bar");
+        setSvgAttributes(rect, { x: 0, y, width: barWidth, height, fill: "#4a90e2" });
 
-    const textProject = createSvgElement('text');
-    textProject.textContent = group.name_project.name;
-    setSvgAttributes(textProject, { x: barWidth / 2, y: 365, textAnchor: "middle", fontSize: 11 });
+        // Tooltip
+        const tooltipText = `Project: ${group.name_project.name}\nMembers: ${group.members_aggregate.total_members.count}\nTeam: ${(group.members_aggregate.team.map(t => t.userLogin) || []).join(", ")}`;
+        rect.onmouseover = (e) => {
+            let tooltip = document.getElementById("tooltip");
+            if (!tooltip) {
+                tooltip = document.createElement("div");
+                tooltip.id = "tooltip";
+                tooltip.className = "tooltip";
+                document.body.appendChild(tooltip);
+            }
+            tooltip.style.display = "block";
+            tooltip.textContent = tooltipText;
+            tooltip.style.left = `${e.pageX + 10}px`;
+            tooltip.style.top = `${e.pageY + 10}px`;
+        };
+        rect.onmouseout = () => {
+            const tooltip = document.getElementById("tooltip");
+            if (tooltip) tooltip.style.display = "none";
+        };
 
-    const teamList = createSvgElement('text');
-    teamList.textContent = (group.members_aggregate.team || []).join(",");
-    setSvgAttributes(teamList, { x: barWidth / 2, y: 380, textAnchor: "middle", fontSize: 10 });
+        // Project name (rotated)
+        const textProject = createSvgElement("text");
+        textProject.textContent = group.name_project.name;
+        setSvgAttributes(textProject, { x: barWidth / 2, y: baseline + 30, textAnchor: "end", fontSize: 10, transform: `rotate(-45, ${barWidth / 2}, ${baseline + 30})` });
 
-    g.append(rect, textCount, textProject, teamList);
-    svg.append(g);
+        g.appendChild(rect);
+        g.appendChild(textProject);
+        svg.appendChild(g);
 
-    offset += step;
-  });
-
-  return svg;
+        offset += step;
+    });
 }
-
-
-
-
-{/* <svg width="660" height="450">
-    <line x1="50" y1="50" x2="50" y2="350" stroke="black" />
-    <line x1="50" y1="350" x2="610" y2="350" stroke="black" />
-
-    <g transform="translate(60, 0)">
-        <rect x="0" y="266.67" width="40" height="83.33" fill="#4a90e2" />
-        <text x="20" y="261.67" text-anchor="middle" font-size="12">1</text>
-        <text x="20" y="365" text-anchor="middle" font-size="11">go-reloaded</text>
-        <text x="20" y="380" text-anchor="middle" font-size="10">ooumayma</text>
-    </g>
-//
-    <g transform="translate(140, 0)">
-        <rect x="0" y="266.67" width="40" height="83.33" fill="#4a90e2" />
-        <text x="20" y="261.67" text-anchor="middle" font-size="12">1</text>
-        <text x="20" y="365" text-anchor="middle" font-size="11">math-skills</text>
-        <text x="20" y="380" text-anchor="middle" font-size="10">ooumayma</text>
-    </g>
-
-    <g transform="translate(220, 0)">
-        <rect x="0" y="266.67" width="40" height="83.33" fill="#4a90e2" />
-        <text x="20" y="261.67" text-anchor="middle" font-size="12">1</text>
-        <text x="20" y="365" text-anchor="middle" font-size="11">guess-it-1</text>
-        <text x="20" y="380" text-anchor="middle" font-size="10">ooumayma</text>
-    </g>
-
-    <g transform="translate(300, 0)">
-        <rect x="0" y="116.67" width="40" height="233.33" fill="#4a90e2" />
-        <text x="20" y="111.67" text-anchor="middle" font-size="12">3</text>
-        <text x="20" y="365" text-anchor="middle" font-size="11">ascii-art</text>
-        <text x="20" y="380" text-anchor="middle" font-size="10">aayoubst, ooumayma, helbadao</text>
-    </g>
-
-    <g transform="translate(380, 0)">
-        <rect x="0" y="116.67" width="40" height="233.33" fill="#4a90e2" />
-        <text x="20" y="111.67" text-anchor="middle" font-size="12">3</text>
-        <text x="20" y="365" text-anchor="middle" font-size="11">ascii-art-output</text>
-        <text x="20" y="380" text-anchor="middle" font-size="10">aayoubst, ooumayma, helbadao</text>
-    </g>
-
-    <g transform="translate(460, 0)">
-        <rect x="0" y="116.67" width="40" height="233.33" fill="#4a90e2" />
-        <text x="20" y="111.67" text-anchor="middle" font-size="12">3</text>
-        <text x="20" y="365" text-anchor="middle" font-size="11">ascii-art-web</text>
-        <text x="20" y="380" text-anchor="middle" font-size="10">aayoubst, ooumayma, midbenke</text>
-    </g>
-
-    <g transform="translate(540, 0)">
-        <rect x="0" y="116.67" width="40" height="233.33" fill="#4a90e2" />
-        <text x="20" y="111.67" text-anchor="middle" font-size="12">3</text>
-        <text x="20" y="365" text-anchor="middle" font-size="11">ascii-art-fs</text>
-        <text x="20" y="380" text-anchor="middle" font-size="10">helbadao, aayoubst, ooumayma</text>
-    </g>
-</svg> */}

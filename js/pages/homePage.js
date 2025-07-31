@@ -16,7 +16,6 @@ export async function renderHomePage(app, userData) {
     if (data) {
         const main = document.querySelector("main")
         const groupsContainer = createElement('div', 'groups-svg')
-        
         console.log("data", data.data["groups_per_project"]);
         const groupsChart = createGroupsChart(data.data["groups_per_project"])
         console.log(groupsChart);
