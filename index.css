@@ -8,13 +8,16 @@
 
 
 
-svg {
+.pie-chart-svg{
   width: 300px;
   height: 300px;
   transform: rotate(-90deg);
   background: var(--first-color);
   border-radius: 50%;
 }
+
+
+
 
 circle {
   fill: var(--third-color);

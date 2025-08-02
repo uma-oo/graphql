@@ -6,6 +6,7 @@ import { createElement, createButton, createSvgElement, setSvgAttributes, getCss
 export function PieChartSkills(skills) {
   const container = createElement('div', 'skills-chart-container');
   const svg = createSvgElement("svg");
+  svg.classList.add('pie-chart-svg');
   svg.setAttribute("viewBox", "0 0 32 32");
   const title = createElement('h4', 'skills-chart-title', 'Skills Chart Pie');
   let buttons = []
