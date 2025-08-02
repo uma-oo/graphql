@@ -12,13 +12,13 @@ export function createElement(tag, className, text = '') {
 
 
 export function createSvgElement(tag) {
-  return document.createElementNS(SVG_NS, tag);
+    return document.createElementNS(SVG_NS, tag);
 }
 
 export function setSvgAttributes(el, attrs) {
-  for (const [k, v] of Object.entries(attrs || {})) {
-    el.setAttribute(k, String(v));
-  }
+    for (const [k, v] of Object.entries(attrs || {})) {
+        el.setAttribute(k, String(v));
+    }
 }
 
 
@@ -84,3 +84,6 @@ export function login(form, data) {
 
 
 
+export function getCssVar(name) {
+    return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+}
