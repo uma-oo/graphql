@@ -136,3 +136,27 @@ main {
     padding: 0 40px;
   }
 }
+
+
+
+/* CSS for the  login form */
+.login-form {
+  margin-top: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 400px;
+  margin: auto;
+  padding: 20px;
+  background-color: var(--first-color);
+  border: 2px solid var(--fourth-color);
+  border-radius: 8px;
+}
+
+.buttons-container{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
