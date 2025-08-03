@@ -4,11 +4,14 @@
   --second-color: #ebd5d5;
   --third-color: #ea8a8a;
   --fourth-color: #685454;
-} 
+}
 
 
+* {
+  background-color: var(--first-color);
+}
 
-.pie-chart-svg{
+.pie-chart-svg {
   width: 300px;
   height: 300px;
   transform: rotate(-90deg);
@@ -69,6 +72,7 @@ main {
   align-items: center;
   margin-bottom: 10px;
 }
+
 .buttons-container {
   display: flex;
   flex-direction: row;
@@ -81,14 +85,14 @@ main {
 /* CSS */
 .button-56 {
   align-items: center;
-  background-color: var(--first-color)  ;
+  background-color: var(--first-color);
   border: 2px solid var(--fourth-color);
   border-radius: 8px;
   box-sizing: border-box;
   color: var(--fourth-color);
   cursor: pointer;
   display: flex;
-  font-family: Inter,sans-serif;
+  font-family: Inter, sans-serif;
   font-size: 16px;
   height: 48px;
   justify-content: center;
@@ -155,8 +159,32 @@ main {
   border-radius: 8px;
 }
 
-.buttons-container{
+.buttons-container {
   display: flex;
   justify-content: space-between;
   width: 100%;
 }
+
+rect {
+
+  fill: var(--third-color);
+
+
+}
+
+.bar-title{
+  display: none;
+  font-size: 15px;
+  fill: var(--fourth-color);
+  text-anchor: start;
+  width: 100%;
+}
+
+
+.bar-group:hover .bar-title {
+  display: block;
+  border: 2px solid var(--fourth-color);
+  width: 90%;
+}
+  /* Change color on hover */
+/* }
