@@ -321,7 +321,7 @@ main {
 
 /* section dyal bar chart */
 .bar-chart-container {
-  max-height: 500px;
+  max-height: 400px;
   overflow-y: auto;
   max-width: 100%;
   overflow-x: auto;
@@ -345,6 +345,7 @@ rect {
 
 
 #tooltip {
+  display: none;
   background-color: var(--second-color);
   border: 1px solid var(--fourth-color);
   padding: 5px;
@@ -487,4 +488,44 @@ span {
   align-items: center;
   justify-content:center;
   flex-wrap: wrap;
+}
+
+
+/* wa akhiraan l footer section */
+.footer-section {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+  border-top:  var(--second-color) solid 2px;
+  padding: 1rem;
+}
+
+.footer-container{
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem;
+  gap: 8px;
+}
+
+
+.footer-section span {
+  color: var(--fourth-color);
+  /* filter: contrast(0.7); */
+  text-align: center;
+  position: relative;
+
+  font-size: 1rem;
+  font-weight: bolder;
+}
+
+.footer-section a {
+  color: var(--second-color);
+  text-align: center;
+  position: relative;
+
+  font-size: 1rem;
+  font-weight: bolder;
 }
