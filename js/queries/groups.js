@@ -23,7 +23,7 @@ export const queryData = (user_id) => {
  #this is a comment to separate queries 
   # bubble chart aykun nadi f l case zawja 
 
-  groups_per_project : group(where: {members: {userId: {_eq: 7198}}, eventId:{_eq:41}, status: {_eq: finished}}){
+  groups_per_project : group(where: {members: {userId: {_eq: $user_id}}, eventId:{_eq:41}, status: {_eq: finished}}){
   name_project :object {
     name
   }

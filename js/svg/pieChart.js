@@ -9,7 +9,8 @@ export function PieChartSkills(skills) {
   const svg = createSvgElement("svg");
   svg.classList.add('pie-chart-svg');
   svg.setAttribute("viewBox", "0 0 32 32");
-  const title = createElement('h2', 'skills-chart-title', 'Skills Chart Pie');
+  const  HeadingTitle = createElement('h2', 'skills-chart-title', 'Skills Chart');
+  const title = createElement('h4', 'skills-chart-title', 'Skills Chart Pie');
   let buttons = []
   const divButtons = createElement('div', 'buttons-container');
   const skillsChartContainer = createElement('div', 'skills-chart-container');
@@ -17,7 +18,7 @@ export function PieChartSkills(skills) {
     const buttonText = element.type.replace("skill_", "");
     const button = createButton({ text: buttonText }, 'button', 'button-56');
     button.addEventListener('click', () => {
-      title.textContent = `${buttonText.toUpperCase()} Making — ${element.amount}% done · ${100 - element.amount}% to go`;
+      title.textContent = `${buttonText.toUpperCase()} Making — ${element.amount}% done | ${100 - element.amount}% to go`;
       svg.innerHTML = ""; // Clear previous content
       const circle = createSvgElement("circle");
       setSvgAttributes(circle, {
@@ -39,7 +40,7 @@ export function PieChartSkills(skills) {
 
   divSvg.append(svg);
   skillsChartContainer.append(divSvg);
-  container.append(title, divButtons, skillsChartContainer);
+  container.append(HeadingTitle,title, divButtons, skillsChartContainer);
 
   console.log("svg", svg);
   return [container, buttons];

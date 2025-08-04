@@ -12,11 +12,14 @@ import { createSvgElement, setSvgAttributes, createElement } from "../utils/util
 
 // horizontal one 7itash projects name are long and we need to display them all
 export function BarChart(projectsData) {
-    const barChartContainer = createElement('div', 'bar-chart-container chart-container');
+    const HeadingTitle  = createElement('h2', 'bar-chart-title', 'Projects Bar Chart');
+    const title = createElement('h4', 'bar-chart-subtitle', 'XP | Group Members');
+    const barChartContainer = createElement('div', 'chart-container');
+    const svgContainer = createElement('div', 'bar-chart-container');
     const maxXP = Math.max(...projectsData.map(project => project.xp_per_project.transactions[0].amount));
     // to handle the width of the bar chart
     const chartWidth = 600
-    const labelWidth = 250
+    const labelWidth = 300
     const maxBarWidth = chartWidth - labelWidth
     // the bar width will be calculated based on the maxXP 
     // to handle the height of the bar chart
@@ -80,10 +83,10 @@ export function BarChart(projectsData) {
         
         group.append(rect, text, divTitle);
         svg.appendChild(group);
+
     });
-
-
-    barChartContainer.appendChild(svg);
+    svgContainer.appendChild(svg);
+    barChartContainer.append(HeadingTitle,title,svgContainer);
     return barChartContainer;
 
 
