@@ -66,9 +66,11 @@ export function BarChart(projectsData) {
 
         rect.addEventListener("mouseenter", (e) => {
             const barRect = rect.getBoundingClientRect();
-            const containerRect = svgContainer.getBoundingClientRect();
+            const containerRect = barChartContainer.getBoundingClientRect();
+            console.log("containerRect", containerRect);
+            console.log("barRec", barRect);
             tooltip.style.left = `${barRect.x }px`;
-            tooltip.style.top = `${containerRect.y - barRect.bottom}px`;
+            tooltip.style.top = `-${containerRect.y-barRect.y}px`;
             tooltip.style.display = "block";
             tooltip.textContent = `Team: ${teamMemberNames.join(', ')} XP: ${project.xp_per_project.transactions[0].amount}`;
         });

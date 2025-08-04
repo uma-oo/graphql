@@ -345,10 +345,10 @@ rect {
 
 
 #tooltip {
-  position: absolute;
   background-color: var(--second-color);
   border: 1px solid var(--fourth-color);
   padding: 5px;
+  margin: 1rem;
   border-radius: 5px;
   box-shadow: 0 2px 5px var(--fourth-color);
   font-size: 0.8rem;
@@ -359,7 +359,7 @@ rect {
   padding: 0.8rem;
 }
 
-#tooltip::after {
+/* #tooltip::after {
   content: "";
   position: absolute;
   width: 0;
@@ -380,7 +380,7 @@ rect {
   top: -6px;
   left: 10px;
 }
-
+ */
 
 
 
