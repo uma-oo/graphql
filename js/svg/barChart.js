@@ -7,19 +7,19 @@
 // ila zd9 hadshi ana safi ghanwli front end engineer u blasti mashi hna 
 
 
-import { createSvgElement, setSvgAttributes, createElement } from "../utils/utils.js"
+import { createSvgElement, setSvgAttributes, createElement, setAttributes } from "../utils/utils.js"
 
 
 // horizontal one 7itash projects name are long and we need to display them all
 export function BarChart(projectsData) {
-    const HeadingTitle  = createElement('h2', 'bar-chart-title', 'Projects Bar Chart');
+    const HeadingTitle = createElement('h2', 'bar-chart-title', 'Projects Chart');
     const title = createElement('h4', 'bar-chart-subtitle', 'XP | Group Members');
     const barChartContainer = createElement('div', 'chart-container');
     const svgContainer = createElement('div', 'bar-chart-container');
     const maxXP = Math.max(...projectsData.map(project => project.xp_per_project.transactions[0].amount));
     // to handle the width of the bar chart
-    const chartWidth = 600
-    const labelWidth = 300
+    const chartWidth = 700
+    const labelWidth = 350
     const maxBarWidth = chartWidth - labelWidth
     // the bar width will be calculated based on the maxXP 
     // to handle the height of the bar chart
@@ -30,7 +30,8 @@ export function BarChart(projectsData) {
     // let's sort the data by the name of the project
     projectsData.sort((a, b) => a.name_project.name.localeCompare(b.name_project.name));
     console.log("sorted projectsData", projectsData);
-
+    const tooltip = createElement('div');
+    setAttributes(tooltip, { id: "tooltip" });
     const svg = createSvgElement('svg')
     setSvgAttributes(svg, {
         width: chartWidth,
@@ -64,8 +65,17 @@ export function BarChart(projectsData) {
             class: 'bar',
             rx: 8,
         });
-    
 
+        rect.addEventListener("mouseenter", (e) => {
+            const barRect = rect.getBoundingClientRect();
+            // console.log("barRect", barRect);
+            // const containerRect = svgContainer.getBoundingClientRect();
+            // console.log("containerRect", containerRect);
+            tooltip.style.left = `${barRect.x }px`;
+            tooltip.style.top = `${barRect.y+(barRect.height/2)-5}px`;
+            tooltip.style.display = "block";
+            tooltip.textContent = `Team: ${teamMemberNames.join(', ')} XP: ${project.xp_per_project.transactions[0].amount}`;
+        });
         // Create a text element for the project name
         const text = createSvgElement('text');
         setSvgAttributes(text, {
@@ -75,18 +85,17 @@ export function BarChart(projectsData) {
             class: 'bar-label'
         });
         text.textContent = project.name_project.name;
-        const divTitle = createElement('div', 'bar-title');
-        const title = createSvgElement('text');
-        setSvgAttributes(title, { class: 'bar-text', x: labelWidth, y: yPosition + barHeight / 2 + 5 });
-        title.textContent = `Team Members: ${teamMemberNames.join(', ')} XP: ${project.xp_per_project.transactions[0].amount}`;
-        divTitle.appendChild(title);
-        
-        group.append(rect, text, divTitle);
+        // const title = createSvgElement('text');
+        // setSvgAttributes(title, { class: 'bar-text', x: labelWidth, y: yPosition + barHeight / 2 + 5 });
+        // title.textContent = `Team: ${teamMemberNames.join(', ')} XP: ${project.xp_per_project.transactions[0].amount}`;
+
+        group.append(rect, text);
         svg.appendChild(group);
 
     });
     svgContainer.appendChild(svg);
-    barChartContainer.append(HeadingTitle,title,svgContainer);
+
+    barChartContainer.append(HeadingTitle, title, svgContainer, tooltip);
     return barChartContainer;
 
 

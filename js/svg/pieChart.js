@@ -16,7 +16,7 @@ export function PieChartSkills(skills) {
   const skillsChartContainer = createElement('div', 'skills-chart-container');
   skills.forEach((element, index) => {
     const buttonText = element.type.replace("skill_", "");
-    const button = createButton({ text: buttonText }, 'button', 'button-56');
+    const button = createButton({ text: buttonText }, 'button', 'button-skills');
     button.addEventListener('click', () => {
       title.textContent = `${buttonText.toUpperCase()} Making — ${element.amount}% done | ${100 - element.amount}% to go`;
       svg.innerHTML = ""; // Clear previous content

@@ -72,6 +72,7 @@ export async function fetchData(query, variables) {
 
         })
 
+
         return [response.status, await response.json()]
     }
     catch (error) {
