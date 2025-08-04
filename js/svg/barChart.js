@@ -12,7 +12,7 @@ import { createSvgElement, setSvgAttributes, createElement } from "../utils/util
 
 // horizontal one 7itash projects name are long and we need to display them all
 export function BarChart(projectsData) {
-    const barChartContainer = createElement('div', 'bar-chart-container');
+    const barChartContainer = createElement('div', 'bar-chart-container chart-container');
     const maxXP = Math.max(...projectsData.map(project => project.xp_per_project.transactions[0].amount));
     // to handle the width of the bar chart
     const chartWidth = 600

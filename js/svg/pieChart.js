@@ -4,14 +4,15 @@ import { createElement, createButton, createSvgElement, setSvgAttributes, getCss
 
 
 export function PieChartSkills(skills) {
-  const container = createElement('div', 'skills-chart-container');
+  const container = createElement('div', 'chart-container');
+  const divSvg = createElement('div', 'svg-container');
   const svg = createSvgElement("svg");
   svg.classList.add('pie-chart-svg');
   svg.setAttribute("viewBox", "0 0 32 32");
-  const title = createElement('h4', 'skills-chart-title', 'Skills Chart Pie');
+  const title = createElement('h2', 'skills-chart-title', 'Skills Chart Pie');
   let buttons = []
   const divButtons = createElement('div', 'buttons-container');
-  container.append(divButtons);
+  const skillsChartContainer = createElement('div', 'skills-chart-container');
   skills.forEach((element, index) => {
     const buttonText = element.type.replace("skill_", "");
     const button = createButton({ text: buttonText }, 'button', 'button-56');
@@ -27,7 +28,7 @@ export function PieChartSkills(skills) {
       });
       circle.setAttribute("stroke-dasharray", `${element.amount} ${100}`)
       let legend = AddLegend(getCssVar('--fourth-color'), element.amount, getCssVar('--third-color'), 100 - element.amount);
-      container.append(legend);
+      skillsChartContainer.append(legend);
       svg.append(circle);
     });
     buttons.push(button);
@@ -36,9 +37,9 @@ export function PieChartSkills(skills) {
 
   });
 
-
-
-  container.append(title, divButtons, svg);
+  divSvg.append(svg);
+  skillsChartContainer.append(divSvg);
+  container.append(title, divButtons, skillsChartContainer);
 
   console.log("svg", svg);
   return [container, buttons];
@@ -46,7 +47,7 @@ export function PieChartSkills(skills) {
 
 
 
-function AddLegend( completedColor, completedAmount, toGoColor, toGoAmount) {
+function AddLegend(completedColor, completedAmount, toGoColor, toGoAmount) {
   let legendExists = document.querySelector('.chart-legend');
   if (legendExists) {
     legendExists.remove();
@@ -65,11 +66,11 @@ function AddLegend( completedColor, completedAmount, toGoColor, toGoAmount) {
   const textToGo = createElement('span', null, `To Go: ${toGoAmount}%`);
   const rectToGo = createElement('span', 'legend-rect');
   rectToGo.style.backgroundColor = toGoColor;
-  
+
   divToGo.append(rectToGo, textToGo);
 
   legend.append(divCompleted, divToGo);
 
-  
+
   return legend
 }
