@@ -29,7 +29,6 @@ export function BarChart(projectsData) {
 
     // let's sort the data by the name of the project
     projectsData.sort((a, b) => a.name_project.name.localeCompare(b.name_project.name));
-    console.log("sorted projectsData", projectsData);
     const tooltip = createElement('div');
     setAttributes(tooltip, { id: "tooltip" });
     const svg = createSvgElement('svg')
@@ -47,7 +46,6 @@ export function BarChart(projectsData) {
                 teamMemberNames.push(member.userLogin)
             }
         );
-        console.log(teamMemberNames);
         const barWidth = (project.xp_per_project.transactions[0].amount / maxXP) * maxBarWidth;
         const yPosition = (index * barHeight) + gap; // to add a gap between bars
         //  nssit l grp ;)
@@ -68,11 +66,9 @@ export function BarChart(projectsData) {
 
         rect.addEventListener("mouseenter", (e) => {
             const barRect = rect.getBoundingClientRect();
-            // console.log("barRect", barRect);
-            // const containerRect = svgContainer.getBoundingClientRect();
-            // console.log("containerRect", containerRect);
+            const containerRect = svgContainer.getBoundingClientRect();
             tooltip.style.left = `${barRect.x }px`;
-            tooltip.style.top = `${barRect.y+(barRect.height/2)-5}px`;
+            tooltip.style.top = `${barRect.y+svgContainer.y+(barRect.height/2)-5}px`;
             tooltip.style.display = "block";
             tooltip.textContent = `Team: ${teamMemberNames.join(', ')} XP: ${project.xp_per_project.transactions[0].amount}`;
         });

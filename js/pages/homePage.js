@@ -5,7 +5,7 @@ import { Home } from '../components/home.js'
 import { queryData } from '../queries/groups.js'
 import { BarChart } from '../svg/barChart.js'
 import { PieChartSkills } from '../svg/pieChart.js'
-
+import  {RenderPersonalInfo} from '../components/info.js'
 export async function renderHomePage(app, userData) {
   app.innerHTML = ""
   app = Home(app)
@@ -18,7 +18,9 @@ export async function renderHomePage(app, userData) {
     const personalInfo = Object.values(dataOrganized[0])[0];
     console.log("personalInfo", personalInfo);
     const level = Object.values(dataOrganized[1])[0];
+    console.log("level", level);
     const cohorts = Object.values(dataOrganized[2])[0];
+    console.log("cohorts", cohorts);
     const projects = Object.values(dataOrganized[3]);
     const skills = Object.values(dataOrganized[4])[0];
     // n3mru l header 
@@ -26,12 +28,14 @@ export async function renderHomePage(app, userData) {
     Header(header, personalInfo)
     // n3mru l main section 
     const main = document.querySelector("main")
+    // add the personal info thing
+    const personalInfoContainer = RenderPersonalInfo(personalInfo, level, cohorts, projects?.length)
     // let's handle here the bar chart svg  w logic ;) 
     // the hardest part 
     const barChartContainer = BarChart(projects)
     // handle the pie chart logic 
     const [skillsChartContainer, buttons] = PieChartSkills(skills)
-    main.append(skillsChartContainer, barChartContainer)
+    main.append(personalInfoContainer, skillsChartContainer, barChartContainer)
     if (buttons.length > 0) {
       buttons[0].click()
     }
