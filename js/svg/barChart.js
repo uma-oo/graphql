@@ -68,7 +68,7 @@ export function BarChart(projectsData) {
             const barRect = rect.getBoundingClientRect();
             const containerRect = svgContainer.getBoundingClientRect();
             tooltip.style.left = `${barRect.x }px`;
-            tooltip.style.top = `${barRect.y+svgContainer.y+(barRect.height/2)-5}px`;
+            tooltip.style.top = `${containerRect.y - barRect.bottom}px`;
             tooltip.style.display = "block";
             tooltip.textContent = `Team: ${teamMemberNames.join(', ')} XP: ${project.xp_per_project.transactions[0].amount}`;
         });
