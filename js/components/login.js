@@ -1,7 +1,6 @@
 import { createButton, createElement, setAttributes, handleFormSubmit } from "../utils/utils.js";
 
 export default function Login() {
-
     const loginContainer = createElement('div', 'login-container')
     const loginForm = createElement('form', 'login-form', null)
     const loginInput = createElement('input', null)
@@ -31,9 +30,16 @@ export default function Login() {
     const errorForm = createElement('span', 'login-error')
     // the event listeners on the submitButton (but where to validate data)
     loginForm.append(loginTitle, loginInput, password, buttonsContainer, errorForm)
+
     loginForm.addEventListener('submit', (e) => {
         e.preventDefault()
         handleFormSubmit(e)
+        submitButton.disabled = true
+        setTimeout(() => {
+            submitButton.disabled = false
+        }, 3000)
+
+
     })
     loginContainer.append(loginForm)
     return loginContainer

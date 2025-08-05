@@ -16,7 +16,15 @@ export function BarChart(projectsData) {
     const title = createElement('h4', 'bar-chart-subtitle', 'XP | Group Members');
     const barChartContainer = createElement('div', 'chart-container');
     const svgContainer = createElement('div', 'bar-chart-container');
-    const maxXP = Math.max(...projectsData.map(project => project.xp_per_project.transactions[0]?.amount));
+    const maxXP = Math.max(...projectsData.map(project => {
+        let res = project.xp_per_project.transactions[0];
+        try {
+            return res.amount;
+        } catch (error) {
+            console.log("err", project);
+            
+        }
+    }));
     // to handle the width of the bar chart
     const chartWidth = 700
     const labelWidth = 350
@@ -67,8 +75,6 @@ export function BarChart(projectsData) {
         rect.addEventListener("mouseenter", (e) => {
             const barRect = rect.getBoundingClientRect();
             const containerRect = barChartContainer.getBoundingClientRect();
-            console.log("containerRect", containerRect);
-            console.log("barRec", barRect);
             tooltip.style.left = `${barRect.x }px`;
             tooltip.style.top = `-${containerRect.y-barRect.y}px`;
             tooltip.style.display = "block";

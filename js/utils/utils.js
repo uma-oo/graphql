@@ -25,7 +25,6 @@ export function setSvgAttributes(el, attrs) {
 export function handleFormSubmit(event) {
     let form = new FormData(event.target)
     const formData = Object.fromEntries(form.entries())
-    console.log(event.target);
     if (event.target.className === "login-form") {
         login(event.target, formData)
     }

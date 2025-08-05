@@ -41,8 +41,6 @@ export function PieChartSkills(skills) {
   divSvg.append(svg);
   skillsChartContainer.append(divSvg);
   container.append(HeadingTitle,title, divButtons, skillsChartContainer);
-
-  console.log("svg", svg);
   return [container, buttons];
 }
 

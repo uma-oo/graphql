@@ -14,9 +14,7 @@ export async function renderHomePage(app, userData) {
 
   if (status == 200 && data) {
     let dataOrganized = Object.values(Object.values(data)[0]);
-    console.log("dataOrganized", dataOrganized);
     const personalInfo = Object.values(dataOrganized[0])[0];
-    console.log("personalInfo", personalInfo);
     const level = Object.values(dataOrganized[1])[0];
     const projects = Object.values(dataOrganized[2]);
     const skills = Object.values(dataOrganized[3])[0];

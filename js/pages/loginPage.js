@@ -4,11 +4,10 @@ import { createElement } from "../utils/utils.js"
 
 
 
-export function renderLoginPage(app) {
+export function renderLoginPage() {
+    const app = document.querySelector('.app')
     app.innerHTML = "" 
     const loginPage = createElement('div', 'login-page') 
     loginPage.append(Login()) 
-
     app.append(loginPage)
-    return app
 }
