@@ -1,5 +1,4 @@
-import { renderApp } from "../index.js";
-import { navigateTo } from "../utils/utils.js";
+
 
 export async function loginUser(data) {
     try {
@@ -41,8 +40,8 @@ export async function isLoggedIn() {
 
         })
         let res = await response.json()
-        if (response.ok && !res.data) return { isLogged: false, error: res.errors }
-        else return { isLogged: true, userData: res.data }
+        if (response.ok && res.data) return { isLogged: true, userData: res.data } 
+        else return { isLogged: false, error: res?.errors }
 
     }
     catch (error) {

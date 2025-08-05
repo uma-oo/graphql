@@ -31,7 +31,10 @@ export default function Login() {
     const errorForm = createElement('span', 'login-error')
     // the event listeners on the submitButton (but where to validate data)
     loginForm.append(loginTitle, loginInput, password, buttonsContainer, errorForm)
-    loginForm.addEventListener('submit', (e) => { handleFormSubmit(e) })
+    loginForm.addEventListener('submit', (e) => {
+        e.preventDefault()
+        handleFormSubmit(e)
+    })
     loginContainer.append(loginForm)
     return loginContainer
 }

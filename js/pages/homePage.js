@@ -18,18 +18,15 @@ export async function renderHomePage(app, userData) {
     const personalInfo = Object.values(dataOrganized[0])[0];
     console.log("personalInfo", personalInfo);
     const level = Object.values(dataOrganized[1])[0];
-    console.log("level", level);
-    const cohorts = Object.values(dataOrganized[2])[0];
-    console.log("cohorts", cohorts);
-    const projects = Object.values(dataOrganized[3]);
-    const skills = Object.values(dataOrganized[4])[0];
+    const projects = Object.values(dataOrganized[2]);
+    const skills = Object.values(dataOrganized[3])[0];
     // n3mru l header 
     const header = document.querySelector('header')
     Header(header, personalInfo)
     // n3mru l main section 
     const main = document.querySelector("main")
     // add the personal info thing
-    const personalInfoContainer = RenderPersonalInfo(personalInfo, level, cohorts, projects?.length)
+    const personalInfoContainer = RenderPersonalInfo(personalInfo, level, projects?.length)
     // let's handle here the bar chart svg  w logic ;) 
     // the hardest part 
     const barChartContainer = BarChart(projects)

@@ -1,5 +1,5 @@
 
-import { createElement, createButton, createSvgElement, setSvgAttributes, getCssVar } from '../utils/utils.js';
+import { createElement, createButton, createSvgElement, setSvgAttributes } from '../utils/utils.js';
 //  for this section we will try to create the pie chart of the skills as the first step
 
 
@@ -28,7 +28,7 @@ export function PieChartSkills(skills) {
         fill: "none"
       });
       circle.setAttribute("stroke-dasharray", `${element.amount} ${100}`)
-      let legend = AddLegend(getCssVar('--fourth-color'), element.amount, getCssVar('--third-color'), 100 - element.amount);
+      let legend = AddLegend('var(--fourth-color)', element.amount, 'var(--third-color)', 100 - element.amount);
       skillsChartContainer.append(legend);
       svg.append(circle);
     });

@@ -16,7 +16,7 @@ export function BarChart(projectsData) {
     const title = createElement('h4', 'bar-chart-subtitle', 'XP | Group Members');
     const barChartContainer = createElement('div', 'chart-container');
     const svgContainer = createElement('div', 'bar-chart-container');
-    const maxXP = Math.max(...projectsData.map(project => project.xp_per_project.transactions[0].amount));
+    const maxXP = Math.max(...projectsData.map(project => project.xp_per_project.transactions[0]?.amount));
     // to handle the width of the bar chart
     const chartWidth = 700
     const labelWidth = 350
@@ -46,7 +46,7 @@ export function BarChart(projectsData) {
                 teamMemberNames.push(member.userLogin)
             }
         );
-        const barWidth = (project.xp_per_project.transactions[0].amount / maxXP) * maxBarWidth;
+        const barWidth = (project.xp_per_project.transactions[0]?.amount / maxXP) * maxBarWidth;
         const yPosition = (index * barHeight) + gap; // to add a gap between bars
         //  nssit l grp ;)
         const group = createSvgElement('g');

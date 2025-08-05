@@ -5,20 +5,13 @@ export const queryData = (user_id) => {
   const query = ` query getAllData($user_id : Int!) {
   logged_in: user {
     login
-    email
-    campus
     auditRatio
 
   }
   current_level: event_user (distinct_on: id where: {userId: { _eq: $user_id }, eventId:{_eq:41}}){
     level 
   }
-   cohort : event_user (distinct_on: userId  where: {userId: { _eq: $user_id }}){
-     cohorts {
-      labelName
-    }
   
-  }
   
  #this is a comment to separate queries 
   # bubble chart aykun nadi f l case zawja 

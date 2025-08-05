@@ -1,6 +1,7 @@
 
 import { createElement, setAttributes } from "../utils/utils.js";
 
+
 export function Home(app) {
     const header = createElement('header', 'header-section', '')
     const main = createElement('main', 'main-section')

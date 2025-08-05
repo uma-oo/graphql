@@ -11,6 +11,4 @@ export function renderLoginPage(app) {
 
     app.append(loginPage)
     return app
-
-
 }

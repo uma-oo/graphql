@@ -23,7 +23,6 @@ export function setSvgAttributes(el, attrs) {
 
 
 export function handleFormSubmit(event) {
-    event.preventDefault()
     let form = new FormData(event.target)
     const formData = Object.fromEntries(form.entries())
     console.log(event.target);
@@ -33,14 +32,7 @@ export function handleFormSubmit(event) {
 }
 
 
-export function loadFormErrors(form, data) {
-    for (let [field, error] of Object.entries(data)) {
-        let inputError = form.querySelector(`.form-grp[data-for="${field}"]>.input-error`)
-        if (inputError) {
-            inputError.textContent = error;
-        }
-    }
-}
+
 
 export function createButton(content, type, className) {
     let button = document.createElement('button')
@@ -83,7 +75,3 @@ export function login(form, data) {
 
 
 
-
-export function getCssVar(name) {
-    return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-}

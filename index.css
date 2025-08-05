@@ -11,19 +11,18 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  /* font-family: 'Inter', sans-serif; */
   font-family: 'Courier New', Courier, monospace;
 
 }
 
 body {
   background: linear-gradient(to bottom left, var(--fourth-color), var(--third-color));
-  justify-content: center;
-  align-items: center;
+  /* justify-content: center;
+  align-items: center; */
   display: flex;
   flex-direction: column;
-
-
+  min-height: 100vh;
+  overflow-x: hidden ;
 }
 
 
@@ -54,6 +53,7 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex-grow: 1;
 }
 
 
@@ -106,7 +106,9 @@ main {
 }
 
 
-
+.app {
+  height: 100%;
+}
 
 
 
@@ -305,7 +307,6 @@ main {
 .skills-chart-container {
   padding: 1rem;
   width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -433,7 +434,7 @@ span {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   padding: 1.2rem;
   border: var(--first-color) solid 2px;
   background-color: #685454;
@@ -482,11 +483,11 @@ span {
 
 /*hadaa huwa li jaam3 duk 3 dyal containers*/
 
-.info-container{
+.info-container {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content:center;
+  justify-content: center;
   flex-wrap: wrap;
 }
 
@@ -496,16 +497,17 @@ span {
   display: flex;
   flex-direction: column;
   margin: 1rem;
-  border-top:  var(--second-color) solid 2px;
+  border-top: var(--second-color) solid 2px;
   padding: 1rem;
 }
 
-.footer-container{
+.footer-container {
 
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
   margin: 1rem;
   gap: 8px;
 }
