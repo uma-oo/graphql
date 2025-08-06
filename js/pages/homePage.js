@@ -5,9 +5,10 @@ import { Home } from '../components/home.js'
 import { queryData } from '../queries/groups.js'
 import { BarChart } from '../svg/barChart.js'
 import { PieChartSkills } from '../svg/pieChart.js'
-import  {RenderPersonalInfo} from '../components/info.js'
-export async function renderHomePage(app, userData) {
-  app.innerHTML = ""
+import { RenderPersonalInfo } from '../components/info.js'
+export async function renderHomePage(userData) {
+  let app = document.querySelector('.app')
+  app.innerHTML = ''
   app = Home(app)
   const [query, variables] = queryData(parseInt(userData.user[0].id))
   const [status, data] = await fetchData(query, variables)

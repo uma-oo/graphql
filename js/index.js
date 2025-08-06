@@ -4,19 +4,17 @@ import { renderLoginPage } from "./pages/loginPage.js";
 
 
 
-export let app = document.querySelector('.app')
-// export let app = document.getElementsByClassName('app')[0]
 
 
 export async function renderApp() {
-    app.innerHTML = ""
     const isLogged = await isLoggedIn()
+    console.log(isLogged);
     switch (isLogged.isLogged) {
         case false:
             renderLoginPage()
             break;
         case true:
-            renderHomePage(app, isLogged.userData)
+            renderHomePage(isLogged.userData)
             break;
     }
 }

@@ -37,7 +37,7 @@ export default function Login() {
         submitButton.disabled = true
         setTimeout(() => {
             submitButton.disabled = false
-        }, 3000)
+        }, 2000)
 
 
     })

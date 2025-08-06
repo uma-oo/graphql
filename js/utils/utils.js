@@ -45,12 +45,6 @@ export function createButton(content, type, className) {
 }
 
 
-export function navigateTo(pathname) {
-    history.replaceState({}, "", pathname)
-    renderApp()
-}
-
-
 export function setAttributes(elem, attributes) {
     for (let [key, val] of Object.entries(attributes)) {
         elem.setAttribute(key, val)
@@ -65,7 +59,7 @@ export function login(form, data) {
             let formError = form.querySelector(".login-error")
             if (status == 200) {
                 localStorage.setItem("token", response)
-                navigateTo("/")
+                renderApp()
             } else {
                 formError.innerText = response.error
             }

@@ -3,7 +3,6 @@ import { createElement, setAttributes } from "../utils/utils.js";
 
 
 export function Home(app) {
-    app.innerHTML = ''
     const header = createElement('header', 'header-section', '')
     const main = createElement('main', 'main-section')
     const footer = createElement('footer', 'footer-section', '')
