@@ -17,6 +17,7 @@ export function BarChart(projectsData) {
     const barChartContainer = createElement('div', 'chart-container');
     const svgContainer = createElement('div', 'bar-chart-container');
     const maxXP = Math.max(...projectsData.map(project => {
+        
         let res = project.xp_per_project.transactions[0];
         try {
             return res.amount;
@@ -36,7 +37,7 @@ export function BarChart(projectsData) {
     const chartHeight = projectsData.length * barHeight + gap
 
     // let's sort the data by the name of the project
-    projectsData.sort((a, b) => a.name_project.name < b.name_project.name);
+    projectsData.sort((a, b) => a.name_project.name.localeCompare(b.name_project.name));
     const tooltip = createElement('div');
     setAttributes(tooltip, { id: "tooltip" });
     const svg = createSvgElement('svg')
