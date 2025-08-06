@@ -24,7 +24,6 @@ export function PieChartSkills(skills) {
         cx: "16",
         cy: "16",
         r: "16",
-        fill: "none"
       });
       circle.setAttribute("stroke-dasharray", `${element?.amount} ${100}`)
       let legend = AddLegend('var(--fourth-color)', element?.amount, 'var(--third-color)', 100 - element?.amount);
