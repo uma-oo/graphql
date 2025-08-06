@@ -35,7 +35,7 @@ export async function renderHomePage(userData) {
     if (buttons.length > 0) {
       buttons[0].click()
     }
-    // l footer section 
+   
 
   }
   return app
