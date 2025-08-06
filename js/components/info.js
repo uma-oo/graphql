@@ -18,9 +18,9 @@ function CreateInfoElementContainer(text, value, pathIcon) {
     const dataContainer = createElement('div', 'key-value')
     const elementContainer = createElement('div', 'data-container')
     const levelHeading = createElement('h4', null, `${text}`)
-    const levelValue = createElement('span', 'data-value', `${value}`)
+    const levelValue = createElement('span', null, `${value}`)
     dataContainer.append(levelHeading, levelValue)
-    const levelIcon = createElement('img', 'icon')
+    const levelIcon = createElement('img', null)
     setAttributes(levelIcon, { src: `${pathIcon}` })
     elementContainer.append(levelIcon, dataContainer)
     return elementContainer

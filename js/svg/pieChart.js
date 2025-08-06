@@ -2,24 +2,23 @@
 import { createElement, createButton, createSvgElement, setSvgAttributes } from '../utils/utils.js';
 //  for this section we will try to create the pie chart of the skills as the first step
 
-
 export function PieChartSkills(skills) {
   const container = createElement('div', 'chart-container');
   const divSvg = createElement('div', 'svg-container');
   const svg = createSvgElement("svg");
   svg.classList.add('pie-chart-svg');
   svg.setAttribute("viewBox", "0 0 32 32");
-  const  HeadingTitle = createElement('h2', 'skills-chart-title', 'Skills Chart');
-  const title = createElement('h4', 'skills-chart-title', 'Skills Chart Pie');
+  const  HeadingTitle = createElement('h2', null, 'Skills Chart');
+  const title = createElement('h4', null,);
   let buttons = []
   const divButtons = createElement('div', 'buttons-container');
   const skillsChartContainer = createElement('div', 'skills-chart-container');
-  skills.forEach((element, index) => {
+  skills.forEach((element) => {
     const buttonText = element.type.replace("skill_", "");
     const button = createButton({ text: buttonText }, 'button', 'button-skills');
     button.addEventListener('click', () => {
       title.textContent = `${buttonText.toUpperCase()} Making — ${element.amount}% done | ${100 - element.amount}% to go`;
-      svg.innerHTML = ""; // Clear previous content
+      svg.innerHTML = ""; 
       const circle = createSvgElement("circle");
       setSvgAttributes(circle, {
         cx: "16",
@@ -27,8 +26,8 @@ export function PieChartSkills(skills) {
         r: "16",
         fill: "none"
       });
-      circle.setAttribute("stroke-dasharray", `${element.amount} ${100}`)
-      let legend = AddLegend('var(--fourth-color)', element.amount, 'var(--third-color)', 100 - element.amount);
+      circle.setAttribute("stroke-dasharray", `${element?.amount} ${100}`)
+      let legend = AddLegend('var(--fourth-color)', element?.amount, 'var(--third-color)', 100 - element?.amount);
       skillsChartContainer.append(legend);
       svg.append(circle);
     });
@@ -52,7 +51,6 @@ function AddLegend(completedColor, completedAmount, toGoColor, toGoAmount) {
     legendExists.remove();
   }
 
-  // Add legend
   const legend = createElement('div', 'chart-legend');
   // section dyal completed
   const divCompleted = createElement('div', 'legend-item');

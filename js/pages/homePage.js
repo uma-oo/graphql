@@ -2,7 +2,7 @@
 import { fetchData } from '../api/api.js'
 import { Header } from '../components/header.js'
 import { Home } from '../components/home.js'
-import { queryData } from '../queries/groups.js'
+import { queryData } from '../queries/query.js'
 import { BarChart } from '../svg/barChart.js'
 import { PieChartSkills } from '../svg/pieChart.js'
 import { RenderPersonalInfo } from '../components/info.js'

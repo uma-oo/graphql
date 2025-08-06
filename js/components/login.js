@@ -5,12 +5,12 @@ export default function Login() {
     const loginForm = createElement('form', 'login-form', null)
     const loginInput = createElement('input', null)
     const password = createElement('input', null)
-    const loginTitle = createElement('h2', 'login-title', 'Log in to your account')
+    const loginTitle = createElement('h2', null, 'Log in to your account')
     // const icon = createElement('img', 'login-icon')
 
 
     const buttonsContainer = createElement('div', 'buttons-container')
-    const submitButton = createButton({ text: "Log In" }, "submit", "sbmit-btn")
+    const submitButton = createButton({ text: "Log In" }, "submit",null)
     buttonsContainer.append(submitButton)
     setAttributes(loginInput, {
         placeholder: "Username or Email",

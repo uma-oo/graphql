@@ -77,10 +77,6 @@ main {
   padding: 0 25px;
   position: relative;
   text-align: center;
-  text-decoration: none;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
 }
 
 
@@ -452,12 +448,6 @@ span {
   margin: 1rem;
 }
 
-.key-value {
-  display: flex;
-  flex-direction: column;
-
-}
-
 /*hadaa huwa li jaam3 duk 3 dyal containers*/
 
 .info-container {
@@ -470,7 +460,7 @@ span {
 
 
 /* wa akhiraan l footer section */
-.footer-section {
+footer {
   display: flex;
   flex-direction: column;
   margin: 1rem;
@@ -497,7 +487,7 @@ span {
 
 }
 
-.footer-section span {
+footer span {
   color: var(--fourth-color);
   /* filter: contrast(0.7); */
   text-align: center;
@@ -507,7 +497,7 @@ span {
   font-weight: bolder;
 }
 
-.footer-section a {
+footer a {
   color: var(--second-color);
   text-align: center;
   position: relative;
