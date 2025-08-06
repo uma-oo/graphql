@@ -4,10 +4,10 @@ import { createElement, setAttributes } from "../utils/utils.js";
 
 export function RenderPersonalInfo(personalInfo, level, projectsDone) {
     const infoContainer = createElement('div', 'info-container')
-    const levelContainer = CreateInfoElementContainer('Current Level', level?.level, '/assets/icon-done.png')
+    const levelContainer = CreateInfoElementContainer('Current Level', level?.level, './assets/icon-done.png')
     const auditRatio = Math.round(personalInfo.auditRatio*10)/10
-    const auditRatioContainer = CreateInfoElementContainer('Audit Ratio', auditRatio, '/assets/icon-engagement.png')
-    const projectDoneContainer = CreateInfoElementContainer('Finished Projects', projectsDone, '/assets/icon-done.png')
+    const auditRatioContainer = CreateInfoElementContainer('Audit Ratio', auditRatio, './assets/icon-engagement.png')
+    const projectDoneContainer = CreateInfoElementContainer('Finished Projects', projectsDone, './assets/icon-done.png')
     infoContainer.append(levelContainer,projectDoneContainer, auditRatioContainer)
     return infoContainer
 
