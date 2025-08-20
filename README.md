@@ -14,7 +14,7 @@ Using the GraphQL endpoint provided by the platform, this project enables users 
 
 - Secure login using JWT (supports both username/password and email/password).
 - Personal profile page three custom data sections (level, audit ratio and the number of projects done).
-- Two SVG-based graphs (animated or interactive) showing statistics such as:
+- Two SVG-based graphs (animated / interactive) showing statistics such as:
   - Pie Chart of skills progression customized for each skill with button click.
   - Bar Chart of Projects (hovering on the bar rectangle displays the team and the XP earned for that project).
 - Fully custom UI.
@@ -88,7 +88,7 @@ The project is hosted on :
 
 This project will help you understand and apply:
 
-- GraphQL and GraphiQL interface
+- GraphQL
 - JWT-based authentication and authorization
 - SVG and data visualization
 - Basic UI/UX principles
